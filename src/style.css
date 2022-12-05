@@ -1,0 +1,24 @@
+img.myImage {
+    width: 650px;
+    height: 600px;
+}
+.mycarousel{
+    width: 650px !important;
+    margin-top:10%;
+    /* margin-left: 10%; */
+}
+.mytitle{
+  margin-top: 50%;
+}
+.myclassname {
+  display: flex;
+}
+.cardd.card {
+  margin: 8px;
+}
+
+
+ 
+  
+  
+  
