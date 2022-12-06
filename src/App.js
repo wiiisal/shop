@@ -8,6 +8,7 @@ import ReactStars from "react-rating-stars-component";
 import Card from './commponents/Cardd';
 import Navbarr from "./commponents/Navbarr"
 import DATA from "./Data"
+import { useEffect } from 'react';
 
 
 
@@ -23,21 +24,21 @@ function App({adem}) {
            
           setID(index)
             };
-            const handleChange=()=>{
+             useEffect(()=>{
 
              const datafiltred=data.filter((element)=>  
                         `${element.name}`.includes(name)
                   
                 )
                 setData(datafiltred)
-            }
+            })
 
 
 
 
   return (
     <Container>
-      <Navbarr getText ={(event) => setName(event)} handleChangeserch={handleChange}/>
+      <Navbarr getText ={(event) => setName(event)}/>
      <Row className='head'>
         <Col>
           <Carousel className='mycarousel' onSlide={show}>
