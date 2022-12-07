@@ -16,6 +16,7 @@ function App({adem}) {
   const [ID, setID] = useState(0);
   const [name ,setName] = useState("")
  const [data, setData] = useState(DATA)
+ const [newData, setNewData] = useState([])
   
  
   
@@ -24,6 +25,11 @@ function App({adem}) {
            
           setID(index)
             };
+            const getMyData = ()=>{
+              let d=sessionStorage.getItem("data")
+              setNewData(JSON.parse(d))
+              
+            }
              useEffect(()=>{
 
              const datafiltred=data.filter((element)=>  
@@ -31,7 +37,8 @@ function App({adem}) {
                   
                 )
                 setData(datafiltred)
-            })
+                getMyData()
+            },[name])
 
 
 
@@ -42,7 +49,7 @@ function App({adem}) {
      <Row className='head'>
         <Col>
           <Carousel className='mycarousel' onSlide={show}>
-                  { adem.map((element)=>(
+                  {adem.map((element)=>(
                       <Carousel.Item key={element.Id}>
                         <img className="myImage" src={element.url} alt="First slide"/>
                         
@@ -51,7 +58,7 @@ function App({adem}) {
           </Carousel>
 
         </Col>
-
+{console.log(newData)}
         <Col >   
         {adem.map((el,index)=>(
         index===ID? <h2 className='mytitle'>
@@ -71,7 +78,7 @@ function App({adem}) {
 <Row>
 <Col>
 <div className='myclassname'>
-{data.map(element => <Card product = {element} />)}
+<Card product = {data} newdata={newData}/>
 </div>
 </Col>
 

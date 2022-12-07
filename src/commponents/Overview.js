@@ -4,6 +4,7 @@ import App from '../App'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios'
 
 
 export default class Overview extends Component {
@@ -14,11 +15,11 @@ export default class Overview extends Component {
       name: "",
       price: "",
       description: "",
-      url: "",
+      imageselected: [],
       quantity: "",
       rating: "",
       show: false,
-
+      newdata:{}
 
 
 
@@ -34,21 +35,30 @@ export default class Overview extends Component {
     this.setState({show:false})
   }
   handleChange(e){
-    this.setState({[e.target.name]: e.target.value });
-console.log(this.state,'ddddsd')
+    this.setState({[e.target.name]:e.target.value})
+    console.log(this.state)
   }
-  handleSave(){
-    const {name,price,description,url,quantity,rating,arr}=this.state
-    const obj={
+  async handleSave(e){
+    var ob
+    e.preventDefault();
+    const {name,description,price,rating,url,quantity,newdata,imageselected}=this.state
+    const formData = new FormData()
+    formData.append("file", imageselected)
+    formData.append('upload_preset', 'ml_default')
+    await axios.post('http://api.cloudinary.com/v1_1/dggq70qck/upload', formData).then((res)=>{
+    ob={
       name:name,
+      description:description,
       price:price,
-      decription:description,
-      url:url,
-      quantity:quantity,
-      rating:rating
+      rating:rating,
+      url:res.data.url,
+      quantity:quantity
+
     }
-    this.setState({arr:arr.push(obj)})
-console.log(this.state,'rrrrrrrrr')
+    
+  })
+    this.setState({newdata:ob})
+    sessionStorage.setItem("data",JSON.stringify(ob))
   
   }
   render() {
@@ -71,7 +81,7 @@ console.log(this.state,'rrrrrrrrr')
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>description</Form.Label>
-        <Form.Control type="text" placeholder="describe your product" name="description" onChange={(e)=>this.handleChange(e)}/>
+        <Form.Control type="text" placeholder="describe your product" name="description" onChange={(e)=>this.handleChange(e)} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>price</Form.Label>
@@ -80,16 +90,22 @@ console.log(this.state,'rrrrrrrrr')
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>image url</Form.Label>
-        <Form.Control type="text" placeholder="Enter your image url" name="url" onChange={(e)=>this.handleChange(e)}/>
+        <input type="file" accept="image/*,.mp4" name="image-upload" id="input" onChange={(event) => this.setState({ imageselected: event.target.files[0] })} />
+                      <div className="label">
+                        <label className="image-upload" htmlFor="input">
+                          <i className="material-icons">add_photo_alternate</i>
+						Choose your Photo
+					</label>
+          </div>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>quantity</Form.Label>
-        <Form.Control type="number" placeholder="Enter your quantity" name="quantity"onChange={(e)=>this.handleChange(e)}/>
+        <Form.Control type="number" placeholder="Enter your quantity" name="quantity" onChange={(e)=>this.handleChange(e)}/>
       
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>raiting</Form.Label>
-        <Form.Control type="number" placeholder="Enter your raiting" name="raiting" onChange={(e)=>this.handleChange(e)}/>
+        <Form.Control type="number" placeholder="Enter your raiting" name="rating" onChange={(e)=>this.handleChange(e)}/>
         
        
       </Form.Group>
@@ -99,7 +115,7 @@ console.log(this.state,'rrrrrrrrr')
             <Button variant="secondary" onClick={()=>this.handleClose()}>
               Close
             </Button>
-            <Button variant="primary" onClick={()=>this.handleSave()}>
+            <Button variant="primary" onClick={(e)=>this.handleSave(e)}>
               Save Changes
             </Button>
           </Modal.Footer>

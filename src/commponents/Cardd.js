@@ -3,26 +3,64 @@ import Card from 'react-bootstrap/Card';
 import ReactStars from 'react-rating-stars-component';
 
 
-export default function Cardd({product}) {
+export default function Cardd({product, newdata}) {
+  const deleteProduct=(id)=>{
+      product.map(element=>{
+        if (id === element.id){
+          product.splice(id,1)
+        }
+      })
+  }
 return (
-    <Card style={{ width: '18rem' }} className="cardd">
-    <Card.Img variant="top" src={product.url} />
+  <div>
+    {product.map(element=>{
+      return(
+        <Card style={{ width: '18rem' }} className="cardd">
+    <Card.Img variant="top" src={element.url} />
     <Card.Body>
-        <Card.Title>{product.name}</Card.Title>
+        <Card.Title>{element.name}</Card.Title>
         
         <Card.Text>
-            {product.description}
+            {element.description}
          </Card.Text>
-         <Card.Text>{product.price}</Card.Text>
+         <Card.Text>{element.price}</Card.Text>
 
         <ReactStars
     count={5}
-    value={product.rating}
+    value={element.rating}
+
+    size={24}
+    activeColor="#ffd700"
+  />
+  <button onClick={()=>deleteProduct(element.id)}>
+    Delete
+  </button>
+    </Card.Body>
+    </Card>
+      )
+    })}
+    
+    
+      <Card style={{ width: '18rem' }} className="cardd">
+    <Card.Img variant="top" src={newdata.url} />
+    {console.log(newdata)}
+    <Card.Body>
+        <Card.Title>{newdata.name}</Card.Title>
+        
+        <Card.Text>
+            {newdata.description}
+         </Card.Text>
+         <Card.Text>{newdata.price}</Card.Text>
+
+        <ReactStars
+    count={5}
+    value={newdata.rating}
     size={24}
     activeColor="#ffd700"
   />
     </Card.Body>
     </Card>
+    </div>
     
   )
 }
