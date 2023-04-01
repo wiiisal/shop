@@ -78,12 +78,11 @@ function App({adem}) {
 <Row>
 <Col>
 <div className='myclassname'>
-<Card product = {data} newdata={newData}/>
+<Card  product = {data} newdata={newData}/>
 </div>
 </Col>
 
 </Row>
-     
 </Container>
 )}
 

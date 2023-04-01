@@ -10,15 +10,9 @@ img.myImage {
 .mytitle{
   margin-top: 50%;
 }
-.myclassname {
+
+
+.cardd{
+  
   display: flex;
 }
-.cardd.card {
-  margin: 8px;
-}
-
-
- 
-  
-  
-  

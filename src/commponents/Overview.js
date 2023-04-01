@@ -69,7 +69,6 @@ export default class Overview extends Component {
         <Button variant="primary" onClick={()=>this.handleShow()}>
           Launch demo modal
         </Button>
-
         <Modal show={this.state.show} onHide={()=>this.handleClose()}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
@@ -90,7 +89,8 @@ export default class Overview extends Component {
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>image url</Form.Label>
-        <input type="file" accept="image/*,.mp4" name="image-upload" id="input" onChange={(event) => this.setState({ imageselected: event.target.files[0] })} />
+        <input type="file" accept="image/*,.mp4" name="image-upload" id="input" onChange={(event) => this.setState(
+          { imageselected: event.target.files[0] })} />
                       <div className="label">
                         <label className="image-upload" htmlFor="input">
                           <i className="material-icons">add_photo_alternate</i>

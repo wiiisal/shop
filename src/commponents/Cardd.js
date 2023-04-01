@@ -12,10 +12,11 @@ export default function Cardd({product, newdata}) {
       })
   }
 return (
-  <div>
+  <div className="cardd">
+    <>
     {product.map(element=>{
       return(
-        <Card style={{ width: '18rem' }} className="cardd">
+        <Card style={{ width: '18rem' }} >
     <Card.Img variant="top" src={element.url} />
     <Card.Body>
         <Card.Title>{element.name}</Card.Title>
@@ -40,8 +41,9 @@ return (
       )
     })}
     
-    
-      <Card style={{ width: '18rem' }} className="cardd">
+</>
+<>
+{/* <Card style={{ width: '18rem' }} >
     <Card.Img variant="top" src={newdata.url} />
     {console.log(newdata)}
     <Card.Body>
@@ -54,12 +56,13 @@ return (
 
         <ReactStars
     count={5}
-    value={newdata.rating}
+    value={newdata.rating-""}
     size={24}
     activeColor="#ffd700"
   />
     </Card.Body>
-    </Card>
+    </Card> */}
+    </>
     </div>
     
   )
